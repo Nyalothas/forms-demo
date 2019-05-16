@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-editor',
@@ -10,6 +10,11 @@ export class UserEditorComponent implements OnInit {
 
   name = new FormControl();
 
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl('')
+  });
+
   constructor() { }
 
   ngOnInit() {
@@ -17,6 +22,10 @@ export class UserEditorComponent implements OnInit {
 
   updateName() {
     this.name.setValue('Panda');
+  }
+
+  onSubmit() {
+    console.log(this.profileForm.value);
   }
 
 }
