@@ -1,0 +1,16 @@
+.container {
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.container__header { 
+	background-color: #9b4dca;
+	color: white;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 8px 16px;
+}
+
+.container__body {
+	padding: 16px;
+}
