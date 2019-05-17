@@ -1,0 +1,6 @@
+<div class="notification" [style.background-color]='notification.color' [style.border-color]='notification.borderColor'>
+	{{ notification.title }}
+	<div class="notification__message" *ngIf="notification.message">
+		{{ notification.message }}
+	</div>
+</div>

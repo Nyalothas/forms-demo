@@ -19,7 +19,7 @@ export class UserEditorComponent implements OnInit {
 	profileForm = this.fb.group({
 		firstName: ['', this.firstLetterCapsValidator],
 		lastName: [''],
-		pinCode: [, [Validators.minLength(3)]]
+		pinCode: [, Validators.minLength(3)]
 	})
 
 	constructor(private fb: FormBuilder) { }
@@ -43,14 +43,18 @@ export class UserEditorComponent implements OnInit {
 		})
 	}
 
-	isControlValid(controlName: string) {
+	isControlValid(controlName: string, validators: string | string[]) {
 		let control = this.profileForm.get(controlName);
 
-		if (control.errors !== null) {
-			return control.errors.valid;
+		if (control.errors === null) {
+			return true;
 		}
-		
-		return true;
+
+		let aValidators = typeof validators === 'string' ? [validators] : validators;
+
+		const isValid = v => { return v === false; }
+
+		return aValidators.some(isValid);
 	}
 
 	firstLetterCapsValidator(c: FormControl) {
@@ -63,7 +67,7 @@ export class UserEditorComponent implements OnInit {
 		let firstChar: string = value[0];
 
 		if (firstChar !== firstChar.toUpperCase()) {
-			return { valid: false }
+			return { firstLetterCaps: false }
 		}
 
 		return null;
