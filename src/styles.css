@@ -2,3 +2,40 @@
 html, body {
     font-family: 'Roboto';
 }
+
+.f {
+    display: flex;
+    justify-content: space-between;
+}
+
+.f--c {
+    flex-direction: column;
+}
+
+.f--r {
+    flex-direction: row;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+input {
+    padding: 8px 4px;
+}
+
+label {
+    margin: 5px;
+    font-weight: bold;
+}
+
+button {
+    padding: 4px;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.info {
+    color: gray;
+    font-weight: 400;
+}

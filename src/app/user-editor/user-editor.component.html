@@ -1,24 +1,45 @@
-<label>
-  Name: 
-  <input type="text" [formControl]="name">
-</label>
-<p>
-  <button (click)="updateName()">Update Name</button>
-</p>
+<div>
+	<label>
+		Name:
+		<input type="text" [formControl]="name">
+	</label>
+
+	<button (click)="onUpdateName()">Update Name</button>
+</div>
 
 
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<div class="f mt-30">
+	<form #profileInfo [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="f f--c">
 
-  <label>
-    First Name:
-    <input type="text" formControlName="firstName">
-  </label>
+		<label class=" f f--c">
+			First Name:
+			<input type="text" formControlName="firstName">
 
-  <label>
-    Last Name:
-    <input type="text" formControlName="lastName">
-  </label>
+			<div *ngIf="!isControlValid('firstName')">
+				Error!
+			</div>
 
-  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+		</label>
 
-</form>
+		<label class="f f--c">
+			Last Name:
+			<input type="text" formControlName="lastName">
+		</label>
+
+		<label class="f f--c">
+			Pin Code:
+			<input type="number" formControlName="pinCode">
+		</label>
+
+		<div class="f f--r">
+			<button type="submit" [disabled]="!profileForm.valid">Submit</button>
+			<button (click)="onUpdateProfile()">AutoFill</button>
+		</div>
+
+		<label class="info">
+			Form Status: {{ profileForm.status }}
+		</label>
+
+	</form>
+
+</div>

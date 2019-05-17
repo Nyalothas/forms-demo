@@ -1,31 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-user-editor',
-  templateUrl: './user-editor.component.html',
-  styleUrls: ['./user-editor.component.css']
+	selector: 'app-user-editor',
+	templateUrl: './user-editor.component.html',
+	styleUrls: ['./user-editor.component.css']
 })
 export class UserEditorComponent implements OnInit {
 
-  name = new FormControl();
+	name = new FormControl();
 
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl('')
-  });
+	/*   profileForm = new FormGroup({
+			firstName: new FormControl(''),
+			lastName: new FormControl(''),
+			pinCode: new FormControl()
+		}); */
 
-  constructor() { }
+	profileForm = this.fb.group({
+		firstName: ['', this.firstLetterCapsValidator],
+		lastName: [''],
+		pinCode: [, [Validators.minLength(3)]]
+	})
 
-  ngOnInit() {
-  }
+	constructor(private fb: FormBuilder) { }
 
-  updateName() {
-    this.name.setValue('Panda');
-  }
+	ngOnInit() {
+	}
 
-  onSubmit() {
-    console.log(this.profileForm.value);
-  }
+	onUpdateName() {
+		this.name.setValue('Panda');
+	}
+
+	onSubmit() {
+		console.log(this.profileForm.value);
+	}
+
+	onUpdateProfile() {
+		this.profileForm.patchValue({
+			firstName: 'Mini',
+			lastName: 'Rx',
+			pinCode: 717
+		})
+	}
+
+	isControlValid(controlName: string) {
+		let control = this.profileForm.get(controlName);
+
+		if (control.errors !== null) {
+			return control.errors.valid;
+		}
+		
+		return true;
+	}
+
+	firstLetterCapsValidator(c: FormControl) {
+		let value: string = c.value;
+
+		if (!value) {
+			return null;
+		}
+
+		let firstChar: string = value[0];
+
+		if (firstChar !== firstChar.toUpperCase()) {
+			return { valid: false }
+		}
+
+		return null;
+	}
 
 }
